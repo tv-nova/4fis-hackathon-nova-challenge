@@ -1,0 +1,19 @@
+# Dataset: download it separately (see README) and never commit or re-share it
+data/*
+!data/README.md
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Output of check_submission.py
+submission.csv
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

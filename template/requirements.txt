@@ -1,0 +1,6 @@
+# Every package your solution imports, ideally with the exact version you used, e.g.
+#   pandas==2.2.3
+#   lightgbm==4.5.0
+# Unpinned packages get the newest version on our side, which may differ from yours.
+pandas
+numpy
