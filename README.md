@@ -102,7 +102,9 @@ ignored; returning 0 for them is fine.
 We run every submission the same way:
 
 1. In a clean Linux container with **Python 3.12**, we install `pandas`, `numpy` and your
-   `requirements.txt`.
+   `requirements.txt`. Unpinned packages get their newest version, which may not be the
+   one you developed with: pandas 3, for example, reads some columns with different types
+   than pandas 2. **Pin your versions** (e.g. `pandas==2.2.3`).
 2. With **the internet switched off**, we call `Model().fit(train)` and then
    `model.predict(test)`.
 
@@ -110,7 +112,7 @@ We run every submission the same way:
 |---|---|
 | All learning happens inside `fit()`. Pre-trained model weights are not allowed; bundled data files are fine. | We train your model ourselves |
 | `predict()` returns one number per input row, in the same order. It must not depend on row order: we shuffle the rows and check. | Robustness |
-| CPU only, no internet during `fit`/`predict`, at most **4 minutes** for `fit` + `predict` together on a laptop; any run still going after 6 minutes is stopped. Tune hyperparameters offline and hard-code them; don't run a search inside `fit()`. Downloads belong in `requirements.txt` or in bundled files. | Fair and reproducible |
+| CPU only (4 cores, 6 GB RAM), no internet during `fit`/`predict`, at most **4 minutes** for `fit` + `predict` together. `predict()` runs a second time for the shuffle check, and any run still going after 6 minutes in total (loading, `fit` and both `predict` calls) is stopped. Tune hyperparameters offline and hard-code them; don't run a search inside `fit()`. Downloads belong in `requirements.txt` or in bundled files. | Fair and reproducible |
 | Read data only from the DataFrames you are given; don't open `data/` yourself | We pass the data in |
 | Don't hard-code dates, row counts or column positions. | Robustness tests, see below |
 
@@ -149,7 +151,7 @@ Only the **last email before the deadline** counts.
 ### Optional dry run
 
 Send your zip before the **dry-run deadline** announced by the organisers, with the
-subject `[Hackathon] <team name> - dry run`. Shortly after, we reply with whether it ran
+subject `[4FIS Hackathon] <team name> - dry run`. Shortly after, we reply with whether it ran
 on our side and its score on **part** of the test period. It is the only score you will see before the end, so use it to catch problems,
 not to tune.
 

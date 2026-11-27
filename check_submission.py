@@ -198,6 +198,12 @@ def main() -> int:
 
     try:
         paths = (args.solution_dir.resolve(), args.data_dir.resolve(), args.out.resolve())
+        missing = [f for f in ("train.csv", "test.csv") if not (paths[1] / f).exists()]
+        if missing:
+            raise SubmissionError(f"{', '.join(missing)} not found in {paths[1]}. Download the data "
+                                  "(link in README.md) into that folder, or pass --data-dir")
+        if not paths[2].parent.is_dir():
+            raise SubmissionError(f"--out: folder {paths[2].parent} does not exist")
         with foreign_working_directory():
             warnings = run_code(*paths)
     except SubmissionError as e:
